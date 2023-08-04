@@ -35,7 +35,6 @@ public class Formulario extends JFrame implements ItemListener{
 
 
     public Formulario() {
-        ConectarBase();
         //Elementos para el combo box
         signoCombo.addItem("Aries");
         signoCombo.addItem("Leo");
@@ -94,24 +93,33 @@ public class Formulario extends JFrame implements ItemListener{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-            try{
+                try{
+                    Formulario Con = new Formulario();
+                    Con.ConectarBase();
+                    //Variables del Login
+                    String QUERY = "SELECT * FROM personas WHERE ID_PER = '"+ cod_input.getText() +"'";
+                    Con.resultado = Con.state.executeQuery(QUERY);  //Query Read
 
-                String QUERY = "SELECT ID_PER, CI_PER, NOMBRE_PER, FECHA_NAC, SIGNO_ZOD FROM personas WHERE ID_PER = '"+ cod_input.getText() +"' ";
+                    if(resultado.next()){
+                        //Obtenemos el nombre del usuario y seteamos
+                        String id_per = resultado.getString("ID_PER");
+                        cod_input.setText(id_per);
+                        String ci_per = resultado.getString("CI_PER");
+                        cc_input.setText(ci_per);
+                        String name_per = resultado.getString("NOMBRE_PER");
+                        name_input.setText(name_per);
+                        String fecha_per = resultado.getString("FECHA_NAC");
+                        fecha_input.setText(fecha_per);
+                        String signo_per = resultado.getString("SIGNO_ZOD");
+                        signoCombo.setSelectedItem(signo_per);
 
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Usuario y/o contraseña son erróneos. Intente nuevamente!\n", "Error de credenciales", JOptionPane.ERROR_MESSAGE);
+                    }
 
-                if(resultado.next()){
-                    //Obtenemos el nombre del usuario
-                    String name = resultado.getString("NOMBRE_EST");
-
-
-                }else{
-                    JOptionPane.showMessageDialog(null, "Usuario y/o contraseña son erróneos. Intente nuevamente!\n", "Error de credenciales", JOptionPane.ERROR_MESSAGE);
+                }catch(SQLException S){
+                    JOptionPane.showMessageDialog(null, S.getMessage(), "Usuario y/o Fecha no existente", JOptionPane.ERROR_MESSAGE);
                 }
-
-            }catch(SQLException S){
-                JOptionPane.showMessageDialog(null, S.getMessage(), "Usuario y/o Fecha no existente", JOptionPane.ERROR_MESSAGE);
-            }
-
             }
         });
 
@@ -119,7 +127,33 @@ public class Formulario extends JFrame implements ItemListener{
         buscar_nombreButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
+                    Formulario Con = new Formulario();
+                    Con.ConectarBase();
+                    //Variables del Login
+                    String QUERY = "SELECT * FROM personas WHERE ID_PER = '"+ name_input.getText() +"'";
+                    Con.resultado = Con.state.executeQuery(QUERY);  //Query Read
 
+                    if(resultado.next()){
+                        //Obtenemos el nombre del usuario y seteamos
+                        String id_per = resultado.getString("ID_PER");
+                        cod_input.setText(id_per);
+                        String ci_per = resultado.getString("CI_PER");
+                        cc_input.setText(ci_per);
+                        String name_per = resultado.getString("NOMBRE_PER");
+                        name_input.setText(name_per);
+                        String fecha_per = resultado.getString("FECHA_NAC");
+                        fecha_input.setText(fecha_per);
+                        String signo_per = resultado.getString("SIGNO_ZOD");
+                        signoCombo.setSelectedItem(signo_per);
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Usuario y/o contraseña son erróneos. Intente nuevamente!\n", "Error de credenciales", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }catch(SQLException S){
+                    JOptionPane.showMessageDialog(null, S.getMessage(), "Usuario y/o Fecha no existente", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -127,7 +161,33 @@ public class Formulario extends JFrame implements ItemListener{
         signo_Button.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                try{
+                    Formulario Con = new Formulario();
+                    Con.ConectarBase();
+                    //Variables del Login
+                    String QUERY = "SELECT * FROM personas WHERE ID_PER = '"+ signoCombo.getSelectedItem() +"'";
+                    Con.resultado = Con.state.executeQuery(QUERY);  //Query Read
 
+                    if(resultado.next()){
+                        //Obtenemos el nombre del usuario y seteamos
+                        String id_per = resultado.getString("ID_PER");
+                        cod_input.setText(id_per);
+                        String ci_per = resultado.getString("CI_PER");
+                        cc_input.setText(ci_per);
+                        String name_per = resultado.getString("NOMBRE_PER");
+                        name_input.setText(name_per);
+                        String fecha_per = resultado.getString("FECHA_NAC");
+                        fecha_input.setText(fecha_per);
+                        String signo_per = resultado.getString("SIGNO_ZOD");
+                        signoCombo.setSelectedItem(signo_per);
+
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Usuario y/o contraseña son erróneos. Intente nuevamente!\n", "Error de credenciales", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                }catch(SQLException S){
+                    JOptionPane.showMessageDialog(null, S.getMessage(), "Usuario y/o Fecha no existente", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
     }
@@ -143,7 +203,7 @@ public class Formulario extends JFrame implements ItemListener{
         frame.setSize(600, 500);
     }
 
-    public static String ConectarBase(){
+    public static void ConectarBase(){
         try {
             /*SQL DATABASE INTEGRATION*/
             final String DB_URL = "jdbc:mysql://localhost/prueba_crud";
@@ -158,7 +218,6 @@ public class Formulario extends JFrame implements ItemListener{
         }catch(SQLException EX){
             JOptionPane.showMessageDialog(null, "Error en conectar base de datos MySQL\n" + EX.getMessage(), "Error de credenciales", JOptionPane.ERROR_MESSAGE);
         }
-        return null;
     }
 
     @Override
