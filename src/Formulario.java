@@ -56,7 +56,11 @@ public class Formulario extends JFrame implements ItemListener{
         borrarRegistroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    JOptionPane.showMessageDialog(null, "Registro de usuario borrado correctamente!\n", "Error!", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception M) {
+                    JOptionPane.showMessageDialog(null, "El registro no se pudo borrar!\n" + M.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -64,7 +68,11 @@ public class Formulario extends JFrame implements ItemListener{
         actualizarRegistroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    JOptionPane.showMessageDialog(null, "Actualización de usuario realizada correctamente!\n", "Actualización de usuario", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception z) {
+                    JOptionPane.showMessageDialog(null, "El registro no se pudo actualizar!\n" + z.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -72,7 +80,11 @@ public class Formulario extends JFrame implements ItemListener{
         ingresarRegistroButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                try {
+                    JOptionPane.showMessageDialog(null, "Ingreso de usuario realizado correctamente!\n", "Registro de usuario", JOptionPane.INFORMATION_MESSAGE);
+                } catch (Exception x) {
+                    JOptionPane.showMessageDialog(null, "El registro no se pudo ingresar!\n" + x.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+                }
             }
         });
 
@@ -80,7 +92,11 @@ public class Formulario extends JFrame implements ItemListener{
         limpiarFormularioButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                cod_input.setText(" ");
+                name_input.setText(" ");
+                cc_input.setText(" ");
+                fecha_input.setText(" ");
+                signoCombo.setSelectedItem(" ");
             }
         });
 
@@ -165,8 +181,8 @@ public class Formulario extends JFrame implements ItemListener{
                     Formulario Con = new Formulario();
                     Con.ConectarBase();
                     //Variables del Login
-                    String QUERY = "SELECT * FROM personas WHERE ID_PER = '"+ signoCombo.getSelectedItem() +"'";
-                    Con.resultado = Con.state.executeQuery(QUERY);  //Query Read
+                    String query = "SELECT * FROM PERSONAS WHERE ID_PER = "+ signoCombo.getSelectedItem();
+                    Con.resultado = Con.state.executeQuery(query);  //Query Read
 
                     if(resultado.next()){
                         //Obtenemos el nombre del usuario y seteamos
