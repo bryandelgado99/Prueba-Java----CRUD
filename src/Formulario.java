@@ -4,15 +4,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
-import java.io.*;
-import java.util.ArrayList;
 
 public class Formulario extends JFrame implements ItemListener{
 
     /*Estados, conexión y sentencias de SQL*/
     public Connection con;
-    public Statement sentencia;
+    public Statement state;
     private ResultSet resultado;
+
+    /*------------------------------------*/
+
     private JPanel rootPanel;
     private JLabel label1;
     private JLabel label2;
@@ -33,7 +34,8 @@ public class Formulario extends JFrame implements ItemListener{
     private JComboBox signoCombo;
 
 
-    public Formulario(){
+    public Formulario() {
+        ConectarBase();
         //Elementos para el combo box
         signoCombo.addItem("Aries");
         signoCombo.addItem("Leo");
@@ -49,8 +51,85 @@ public class Formulario extends JFrame implements ItemListener{
         signoCombo.addItem("Libra");
         signoCombo.addItemListener(this);
 
+        /*SECCIÓN DE LISTENERS---------------------------------------------------------------------------*/
+
+        //Borrar Registro
+        borrarRegistroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        //Actualizar registro
+        actualizarRegistroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        //Ingresar Regsitro
+        ingresarRegistroButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        //Limpiar Formulario
+        limpiarFormularioButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        /*------------------------------------------------------------------------------------------------*/
+
+        //Listeners de busqueda en Database
+
+        //Buscar por codigo
+        buscar_codeBotton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            try{
+
+                String QUERY = "SELECT ID_PER, CI_PER, NOMBRE_PER, FECHA_NAC, SIGNO_ZOD FROM personas WHERE ID_PER = '"+ cod_input.getText() +"' ";
 
 
+                if(resultado.next()){
+                    //Obtenemos el nombre del usuario
+                    String name = resultado.getString("NOMBRE_EST");
+
+
+                }else{
+                    JOptionPane.showMessageDialog(null, "Usuario y/o contraseña son erróneos. Intente nuevamente!\n", "Error de credenciales", JOptionPane.ERROR_MESSAGE);
+                }
+
+            }catch(SQLException S){
+                JOptionPane.showMessageDialog(null, S.getMessage(), "Usuario y/o Fecha no existente", JOptionPane.ERROR_MESSAGE);
+            }
+
+            }
+        });
+
+        //Buscar por nombre
+        buscar_nombreButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
+
+        //Buscar por signo
+        signo_Button.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+            }
+        });
     }
 
     public static void main(String[] args) {
@@ -62,10 +141,9 @@ public class Formulario extends JFrame implements ItemListener{
         frame.setResizable(false);
         frame.setVisible(true);
         frame.setSize(600, 500);
-        ConectarBase();
     }
 
-    public static void ConectarBase(){
+    public static String ConectarBase(){
         try {
             /*SQL DATABASE INTEGRATION*/
             final String DB_URL = "jdbc:mysql://localhost/prueba_crud";
@@ -76,19 +154,11 @@ public class Formulario extends JFrame implements ItemListener{
             Statement sentencia = con.createStatement();
 
             JOptionPane.showMessageDialog(null, "Éxito al conectar base de datos MySQL", "Conexión a base de datos", JOptionPane.INFORMATION_MESSAGE);
+
         }catch(SQLException EX){
             JOptionPane.showMessageDialog(null, "Error en conectar base de datos MySQL\n" + EX.getMessage(), "Error de credenciales", JOptionPane.ERROR_MESSAGE);
         }
-    }
-
-    public void AccederVariables(){
-        Formulario Con = new Formulario();
-        //Variables del Login
-        String codigo= cod_input.getText();
-        String cedula = cc_input.getText();
-        String nombre = name_input.getText();
-        String fecha_naci = fecha_input.getText();
-        String signo_zod = signo_Button.getText();
+        return null;
     }
 
     @Override
