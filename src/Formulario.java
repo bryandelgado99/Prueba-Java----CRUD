@@ -57,9 +57,18 @@ public class Formulario extends JFrame implements ItemListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
-                    JOptionPane.showMessageDialog(null, "Registro de usuario borrado correctamente!\n", "Error!", JOptionPane.INFORMATION_MESSAGE);
-                } catch (Exception M) {
-                    JOptionPane.showMessageDialog(null, "El registro no se pudo borrar!\n" + M.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
+                    Formulario Con = new Formulario();
+                    Con.ConectarBase();
+                    //Variables del Login
+                    String query = "DELETE * FROM PERSONAS WHERE ID_PER =" + cod_input.getText();
+                    Con.resultado = Con.state.executeQuery(query);  //Query Read
+
+                    while (resultado.next()) {
+                        JOptionPane.showMessageDialog(null, "Registro de usuario borrado correctamente!\n", "Error!", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
+                }catch(Exception M){
+                        JOptionPane.showMessageDialog(null, "El registro no se pudo borrar!\n" + M.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
@@ -69,7 +78,16 @@ public class Formulario extends JFrame implements ItemListener{
             @Override
             public void actionPerformed(ActionEvent e) {
                 try {
+                    Formulario Con = new Formulario();
+                    Con.ConectarBase();
+                    //Variables del Login
+                    String query = "UPDATE personas SET NOMBRE_PER = WHERE ID_PER = + cod_input.getText()";
+                    Con.resultado = Con.state.executeQuery(query);  //Query Read
+
+                    while (resultado.next()) {
                     JOptionPane.showMessageDialog(null, "Actualización de usuario realizada correctamente!\n", "Actualización de usuario", JOptionPane.INFORMATION_MESSAGE);
+                    }
+
                 } catch (Exception z) {
                     JOptionPane.showMessageDialog(null, "El registro no se pudo actualizar!\n" + z.getMessage(), "Error!", JOptionPane.ERROR_MESSAGE);
                 }
