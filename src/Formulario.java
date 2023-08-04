@@ -153,15 +153,15 @@ public class Formulario extends JFrame implements ItemListener{
                     if(resultado.next()){
                         //Obtenemos el nombre del usuario y seteamos
                         String id_per = resultado.getString("ID_PER");
-                        cod_input.setText(id_per);
+                            cod_input.setText(id_per);
                         String ci_per = resultado.getString("CI_PER");
-                        cc_input.setText(ci_per);
+                            cc_input.setText(ci_per);
                         String name_per = resultado.getString("NOMBRE_PER");
-                        name_input.setText(name_per);
+                            name_input.setText(name_per);
                         String fecha_per = resultado.getString("FECHA_NAC");
-                        fecha_input.setText(fecha_per);
+                            fecha_input.setText(fecha_per);
                         String signo_per = resultado.getString("SIGNO_ZOD");
-                        signoCombo.setSelectedItem(signo_per);
+                            signoCombo.setSelectedItem(signo_per);
 
                     }else{
                         JOptionPane.showMessageDialog(null, "Usuario y/o contraseña son erróneos. Intente nuevamente!\n", "Error de credenciales", JOptionPane.ERROR_MESSAGE);
